@@ -1,14 +1,5 @@
-/*
- * action types
- */
+import { ADD_DOTO } from './constants/ActionTypes';
 
-export const SOME_ACTION_TYPE = 'SOME_ACTION_TYPE';
-
-
-/*
- * action creators
- */
-
-export function someActionCreator(payload) {
-  return { type: SOME_ACTION_TYPE, payload }
+export function addDoto(payload) {
+  return { type: ADD_DOTO, payload };
 }
