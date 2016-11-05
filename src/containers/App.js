@@ -1,7 +1,11 @@
 import React from 'react';
+import AddDoto from './AddDoto';
 
 const App = () => (
-  <h1>Do-to!!!</h1>
+  <div>
+    <h1>Do-to!!!</h1>
+    <AddDoto />
+  </div>
 );
 
 export default App;
