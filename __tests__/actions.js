@@ -7,12 +7,12 @@ import {
 
 describe('actions', () => {
   it('should create an action to add a doto', () => {
-    const doto = { title: 'Some Doto' };
+    const title = 'Some Doto';
     const expectedAction = {
       type: ADD_DOTO,
-      payload: doto
+      payload: { title }
     };
 
-    expect(addDoto(doto)).toEqual(expectedAction);
+    expect(addDoto(title)).toEqual(expectedAction);
   });
 });

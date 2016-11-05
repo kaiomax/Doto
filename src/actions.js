@@ -1,8 +1,8 @@
 import { ADD_DOTO } from './constants/ActionTypes';
 
-export function addDoto(payload) {
+export function addDoto(title) {
   return {
     type: ADD_DOTO,
-    payload
+    payload: { title }
   };
 }
