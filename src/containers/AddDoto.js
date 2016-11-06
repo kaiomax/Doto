@@ -3,12 +3,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { addDoto } from '../actions';
 
-function mapStateToProps(state) {
-  return {
-    dotos: state.dotos
-  };
-}
-
 function mapDispatchToProps(dispatch) {
   const actions = { addDoto };
 
@@ -20,19 +14,21 @@ export class AddDoto extends React.Component {
     super();
 
     this.state = {
-      input: ''
+      value: ''
     };
   }
 
   handleChange(evt) {
     this.setState({
-      input: evt.target.value
+      value: evt.target.value
     });
   }
 
   handleAddDoto() {
-    const doto = { title: this.state.input }
-    this.props.addDoto(doto);
+    this.props.addDoto(this.state.value);
+    this.setState({
+      value: ''
+    });
   }
 
   render() {
@@ -41,6 +37,7 @@ export class AddDoto extends React.Component {
         <input
           type="text"
           placeholder="O que deseja fazer?"
+          value={ this.state.value }
           onChange={ this.handleChange.bind(this) }
         />
         <button onClick={ this.handleAddDoto.bind(this) }>Adicionar</button>
@@ -49,4 +46,4 @@ export class AddDoto extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddDoto);
+export default connect(undefined, mapDispatchToProps)(AddDoto);
