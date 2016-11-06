@@ -7,7 +7,7 @@ const DotoList = ({ dotos }) => {
         return (
           <li key={ i }>{ doto.title }</li>
         );
-      })}
+      }) }
     </ul>
   );
 };

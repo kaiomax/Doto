@@ -6,20 +6,23 @@ const WebpackNotifierPlugin = require('webpack-notifier');
 const buildDirectory = './dist/';
 
 module.exports = {
-  entry: './src/main.js',
+  entry: [
+    'webpack-dev-server/client?http://localhost:8080',
+    'webpack/hot/only-dev-server',
+    'react-hot-loader/patch',
+    './src/main.js'
+  ],
   devServer: {
     hot: true,
-    inline: true,
-    port: 8080,
-    historyApiFallback: true
+    contentBase: './'
   },
   resolve: {
     extensions: ['', '.js', '.jsx'],
   },
   output: {
     path: path.resolve(buildDirectory),
-    filename: 'app.js',
-    publicPath: 'http://localhost:8080/dist',
+    filename: 'bundle.js',
+    publicPath: '/static/',
   },
   module: {
     loaders: [
@@ -36,6 +39,7 @@ module.exports = {
     ],
   },
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
     new WebpackNotifierPlugin()
   ]
 };
