@@ -1,8 +1,6 @@
 import { ADD_DOTO } from '../constants/ActionTypes';
 
-const initialState = [
-  { title: 'Some Doto' }
-];
+const initialState = [];
 
 export default function dotos(state = initialState, action) {
   switch (action.type) {

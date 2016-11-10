@@ -3,14 +3,11 @@ import {
   ADD_DOTO
 } from '../../src/constants/ActionTypes';
 
-
 describe('todos reducer', () => {
   it('should return the initial state', () => {
     expect(
       reducer(undefined, {})
-    ).toEqual([
-      { title: 'Some Doto' }
-    ]);
+    ).toEqual([]);
   });
 
   it('should handle ADD_DOTO', () => {
@@ -34,5 +31,7 @@ describe('todos reducer', () => {
       { title: 'Some Doto 1' },
       { title: 'Some Doto 2' }
     ]);
-  })
+  });
+
+
 });
