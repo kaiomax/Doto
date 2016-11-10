@@ -1,6 +1,7 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import DotoList from '../../src/components/DotoList';
+import { ListItem } from 'material-ui/List';
 
 const props = {
   dotos: [
@@ -8,18 +9,18 @@ const props = {
     { title: 'Doto 2' }
   ]
 };
+let wrapper;
 
 describe('DotoList', () => {
-  it('should render items', () => {
-    const wrapper = shallow(<DotoList { ...props } />);
+  beforeEach(() => {
+    wrapper = shallow(<DotoList { ...props } />);
+  });
 
-    expect(wrapper.find('ul').length).toBe(1);
-    expect(wrapper.find('li').length).toBe(props.dotos.length);
+  it('should render items', () => {
+    expect(wrapper.find(ListItem).length).toBe(props.dotos.length);
   });
 
   it('should have props for dotos', () => {
-    const wrapper = mount(<DotoList { ...props } />);
-
-    expect(wrapper.prop('dotos')).toBeDefined();
+    expect(wrapper.instance().props.dotos).toBeDefined();
   });
 });

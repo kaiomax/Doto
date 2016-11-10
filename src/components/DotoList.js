@@ -1,14 +1,18 @@
 import React, { PropTypes } from 'react';
+import { List, ListItem } from 'material-ui/List';
 
 const DotoList = ({ dotos }) => {
   return (
-    <ul>
+    <List>
       { dotos.map((doto, i) => {
         return (
-          <li key={ i }>{ doto.title }</li>
+          <ListItem
+            key={ i }
+            primaryText={ doto.title }
+          />
         );
       }) }
-    </ul>
+    </List>
   );
 };
 

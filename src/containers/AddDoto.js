@@ -2,6 +2,8 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { addDoto } from '../actions';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 
 function mapDispatchToProps(dispatch) {
   const actions = { addDoto };
@@ -34,13 +36,16 @@ export class AddDoto extends React.Component {
   render() {
     return (
       <div>
-        <input
-          type="text"
-          placeholder="O que deseja fazer?"
+        <TextField
+          hintText="O que deseja fazer?"
+          floatingLabelText="Doto"
           value={ this.state.value }
           onChange={ this.handleChange.bind(this) }
         />
-        <button onClick={ this.handleAddDoto.bind(this) }>Adicionar</button>
+        <RaisedButton
+          onClick={ this.handleAddDoto.bind(this) }
+          label="Adicionar"
+        />
       </div>
     );
   }
