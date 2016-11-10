@@ -1,8 +1,10 @@
 import {
-  addDoto
+  addDoto,
+  startTimer
 } from '../src/actions';
 import {
-  ADD_DOTO
+  ADD_DOTO,
+  START_TIMER
 } from '../src/constants/ActionTypes';
 
 describe('actions', () => {
@@ -14,5 +16,15 @@ describe('actions', () => {
     };
 
     expect(addDoto(title)).toEqual(expectedAction);
+  });
+
+  it('should create an action to start a timer', () => {
+    const minutes = 25;
+    const expectedAction = {
+      type: START_TIMER,
+      payload: { minutes }
+    };
+
+    expect(startTimer(minutes)).toEqual(expectedAction);
   });
 });
