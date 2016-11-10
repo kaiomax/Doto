@@ -1,10 +1,6 @@
 import { ADD_DOTO } from '../constants/ActionTypes';
 
-const initialState = [
-  { title: 'Some Doto' }
-];
-
-export default function dotos(state = initialState, action) {
+export default function dotos(state = [], action) {
   switch (action.type) {
     case ADD_DOTO:
       return [
@@ -12,6 +8,6 @@ export default function dotos(state = initialState, action) {
         { title: action.payload.title }
       ];
     default:
-      return initialState;
+      return state;
   }
 }

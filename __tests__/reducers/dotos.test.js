@@ -8,9 +8,7 @@ describe('todos reducer', () => {
   it('should return the initial state', () => {
     expect(
       reducer(undefined, {})
-    ).toEqual([
-      { title: 'Some Doto' }
-    ]);
+    ).toEqual([]);
   });
 
   it('should handle ADD_DOTO', () => {

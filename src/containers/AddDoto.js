@@ -39,12 +39,14 @@ export class AddDoto extends React.Component {
         <TextField
           hintText="O que deseja fazer?"
           floatingLabelText="Doto"
+          fullWidth={ true }
           value={ this.state.value }
           onChange={ this.handleChange.bind(this) }
         />
         <RaisedButton
           onClick={ this.handleAddDoto.bind(this) }
           label="Adicionar"
+          style={ { marginTop: 20, marginBottom: 20 } }
         />
       </div>
     );
