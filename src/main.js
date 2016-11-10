@@ -5,6 +5,9 @@ import { createStore, compose } from 'redux';
 import { persistStore, autoRehydrate } from 'redux-persist';
 import reducers from './reducers/';
 import Root from './containers/Root';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
+injectTapEventPlugin();
 
 const store = createStore(
   reducers,

@@ -32,6 +32,4 @@ describe('todos reducer', () => {
       { title: 'Some Doto 2' }
     ]);
   });
-
-
 });

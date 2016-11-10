@@ -10,6 +10,6 @@ export default function dotos(state = initialState, action) {
         { title: action.payload.title }
       ];
     default:
-      return initialState;
+      return state;
   }
 }

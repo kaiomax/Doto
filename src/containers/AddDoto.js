@@ -2,6 +2,9 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { addDoto } from '../actions';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+import Snackbar from 'material-ui/Snackbar';
 
 function mapDispatchToProps(dispatch) {
   const actions = { addDoto };
@@ -14,7 +17,8 @@ export class AddDoto extends React.Component {
     super();
 
     this.state = {
-      value: ''
+      value: '',
+      alertIsVisible: false
     };
   }
 
@@ -25,22 +29,46 @@ export class AddDoto extends React.Component {
   }
 
   handleAddDoto() {
-    this.props.addDoto(this.state.value);
+    const { value } = this.state;
+    if(value != '') {
+      this.props.addDoto(value);
+      this.setState({
+        value: ''
+      });
+    } else {
+      this.setState({
+        alertIsVisible: true
+      });
+    }
+  }
+
+  handleCloseAlert() {
     this.setState({
-      value: ''
+      alertIsVisible: false
     });
   }
 
   render() {
     return (
       <div>
-        <input
-          type="text"
-          placeholder="O que deseja fazer?"
+        <TextField
+          hintText="O que deseja fazer?"
+          floatingLabelText="Doto"
+          fullWidth={ true }
           value={ this.state.value }
           onChange={ this.handleChange.bind(this) }
         />
-        <button onClick={ this.handleAddDoto.bind(this) }>Adicionar</button>
+        <RaisedButton
+          onClick={ this.handleAddDoto.bind(this) }
+          label="Adicionar"
+          style={ { marginTop: 20, marginBottom: 20 } }
+        />
+        <Snackbar
+          open={ this.state.alertIsVisible }
+          message="É necessário adicionar a descrição da Doto."
+          autoHideDuration={ 3000 }
+          onRequestClose={ this.handleCloseAlert.bind(this) }
+        />
       </div>
     );
   }
