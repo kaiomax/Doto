@@ -37,4 +37,19 @@ describe('AddDoto', () => {
     expect(props.addDoto.mock.calls.length).toBe(1);
     expect(props.addDoto.mock.calls[0][0]).toBe(dotoTitle);
   });
+
+  it('should not call addDoto when has no title', () => {
+    const { wrapper, props } = setup();
+    wrapper.find(RaisedButton).simulate('click');
+
+    expect(props.addDoto.mock.calls.length).toBe(0);
+  });
+
+  it('should show alert when is invalid', () => {
+    const { wrapper } = setup();
+
+    expect(wrapper.state().alertIsVisible).toBeFalsy();
+    wrapper.find(RaisedButton).simulate('click');
+    expect(wrapper.state().alertIsVisible).toBeTruthy();
+  });
 });
