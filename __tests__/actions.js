@@ -1,10 +1,12 @@
 import {
   addDoto,
-  startTimer
+  startTimer,
+  stopTimer
 } from '../src/actions';
 import {
   ADD_DOTO,
-  START_TIMER
+  START_TIMER,
+  STOP_TIMER
 } from '../src/constants/ActionTypes';
 
 describe('actions', () => {
@@ -19,12 +21,22 @@ describe('actions', () => {
   });
 
   it('should create an action to start a timer', () => {
-    const minutes = 25;
+    const timeLeft = '00:25:00';
     const expectedAction = {
       type: START_TIMER,
-      payload: { minutes }
+      payload: { timeLeft }
     };
 
-    expect(startTimer(minutes)).toEqual(expectedAction);
+    expect(startTimer(timeLeft)).toEqual(expectedAction);
+  });
+
+  it('should create an action to stop the timer', () => {
+    const finishedAt = new Date();
+    const expectedAction = {
+      type: STOP_TIMER,
+      payload: { finishedAt }
+    };
+
+    expect(stopTimer(finishedAt)).toEqual(expectedAction);
   });
 });
