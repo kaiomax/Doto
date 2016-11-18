@@ -1,13 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { StartTimer } from '../../src/containers/StartTimer';
+import { ClockControl } from '../../src/containers/ClockControl';
 import RaisedButton from 'material-ui/RaisedButton';
 
 function setup() {
   const props = {
-    startTimer: jest.fn()
+    playTimer: jest.fn()
   };
-  const wrapper = shallow(<StartTimer { ...props } />);
+  const wrapper = shallow(<ClockControl { ...props } />);
 
   return {
     props,
@@ -15,7 +15,7 @@ function setup() {
   }
 }
 
-describe('StartTimer', () => {
+describe('ClockControl', () => {
   it('should render self and subcomponents', () => {
     const { wrapper } = setup();
 
@@ -23,13 +23,12 @@ describe('StartTimer', () => {
     expect(wrapper.find(RaisedButton).props().label).toBe('Iniciar');
   });
 
-  it('should call startTimer', () => {
+  it('should call playTimer', () => {
     const { wrapper, props } = setup();
 
     wrapper.find(RaisedButton).simulate('click');
 
-    expect(props.startTimer.mock.calls.length).toBe(1);
-    expect(props.startTimer.mock.calls[0][0]).toBe(25);
+    expect(props.playTimer.mock.calls.length).toBe(1);
   });
 
 });

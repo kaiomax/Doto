@@ -1,25 +1,21 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { startTimer } from '../actions';
+import { playTimer } from '../actions';
 import RaisedButton from 'material-ui/RaisedButton';
 
 function mapDispatchToProps(dispatch) {
-  const actions = { startTimer };
+  const actions = { playTimer };
 
   return bindActionCreators(actions, dispatch);
 }
 
-export class StartTimer extends React.Component {
-  handleStartTimer() {
-    this.props.startTimer(25);
-  }
-
+export class ClockControl extends React.Component {
   render() {
     return (
       <div>
         <RaisedButton
-          onClick={ this.handleStartTimer.bind(this) }
+          onClick={ this.props.playTimer.bind(this) }
           label="Iniciar"
           style={ { marginTop: 20, marginBottom: 20 } }
         />
@@ -28,4 +24,4 @@ export class StartTimer extends React.Component {
   }
 }
 
-export default connect(undefined, mapDispatchToProps)(StartTimer);
+export default connect(undefined, mapDispatchToProps)(ClockControl);

@@ -1,8 +1,8 @@
 import React from 'react';
-import { render } from 'enzyme';
+import { shallow } from 'enzyme';
 import Clock from '../../src/components/Clock';
 
-const time = '00:25';
+const time = 0;
 const props = {
   time: time
 };
@@ -11,10 +11,12 @@ let wrapper;
 
 describe('Clock', () => {
   beforeEach(() => {
-    wrapper = render(<Clock { ...props } />);
+    wrapper = shallow(<Clock { ...props } />);
   });
 
   it('should render the clock', () => {
-    expect(wrapper.text()).toBe(time);
+    expect(wrapper.text()).toBe('00:00');
+    wrapper.setProps({ time: 60 });
+    expect(wrapper.text()).toBe('01:00');
   });
 });

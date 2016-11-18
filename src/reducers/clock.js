@@ -1,21 +1,28 @@
 import {
-  START_TIMER,
+  PAUSE_TIMER,
+  PLAY_TIMER,
   STOP_TIMER
 } from '../constants/ActionTypes';
+import moment from 'moment';
 
-const defaultTime = '00:25:00';
+const defaultTime = moment.duration(25, 'minutes').asSeconds();
 const initialState = { timeLeft: defaultTime, ticking: false };
 
 export default function clock(state = initialState, action) {
   switch (action.type) {
-    case START_TIMER:
+    case PLAY_TIMER:
       return {
-        timeLeft: (action.payload && action.payload.timeLeft) || state.timeLeft,
+        ...state,
         ticking: true
+      };
+    case PAUSE_TIMER:
+      return {
+        ...state,
+        ticking: false
       };
     case STOP_TIMER:
       return {
-        timeLeft: '00:00:00',
+        timeLeft: defaultTime,
         ticking: false
       }
     default:

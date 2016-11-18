@@ -1,6 +1,9 @@
-import { ADD_DOTO } from './constants/ActionTypes';
-import { START_TIMER } from './constants/ActionTypes';
-import { STOP_TIMER } from './constants/ActionTypes';
+import {
+  ADD_DOTO,
+  PAUSE_TIMER,
+  PLAY_TIMER,
+  STOP_TIMER
+} from './constants/ActionTypes';
 
 export function addDoto(title) {
   return {
@@ -9,16 +12,20 @@ export function addDoto(title) {
   };
 }
 
-export function startTimer(timeLeft) {
+export function pauseTimer() {
   return {
-    type: START_TIMER,
-    payload: { timeLeft }
+    type: PAUSE_TIMER
   };
 }
 
-export function stopTimer(finishedAt) {
+export function playTimer() {
   return {
-    type: STOP_TIMER,
-    payload: { finishedAt }
+    type: PLAY_TIMER
+  };
+}
+
+export function stopTimer() {
+  return {
+    type: STOP_TIMER
   };
 }

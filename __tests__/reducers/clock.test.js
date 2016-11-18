@@ -1,39 +1,40 @@
 import reducer from '../../src/reducers/clock';
 import {
-  START_TIMER, STOP_TIMER
+  PAUSE_TIMER, PLAY_TIMER, STOP_TIMER
 } from '../../src/constants/ActionTypes';
+import moment from 'moment';
+
+const initalTime = moment.duration(25, 'minutes').asSeconds();
 
 describe('clock reducer', () => {
   it('should return the initial state', () => {
     expect(
       reducer(undefined, {})
-    ).toEqual({ timeLeft: '00:25:00', ticking: false });
+    ).toEqual({ timeLeft: initalTime, ticking: false });
   });
 
-  it('should handle START_TIMER', ()=>{
+  it('should handle PLAY_TIMER', ()=>{
     expect(
       reducer(undefined, {
-        type: START_TIMER
-      })
-    ).toEqual({ timeLeft: '00:25:00', ticking: true });
+        type: PLAY_TIMER
+      }).ticking
+    ).toBeTruthy();
   });
 
-  it('should handle START_TIMER with a time', ()=>{
+  it('should handle PAUSE_TIMER', ()=>{
     expect(
       reducer(undefined, {
-        type: START_TIMER,
-        payload: { timeLeft: '00:21:00' }
-      })
-    ).toEqual({ timeLeft: '00:21:00', ticking: true });
+        type: PAUSE_TIMER
+      }).ticking
+    ).toBeFalsy();
   });
 
   it('should handle STOP_TIMER', ()=>{
     expect(
       reducer(undefined, {
-        type: STOP_TIMER,
-        payload: { finishedAt: new Date() }
+        type: STOP_TIMER
       })
-    ).toEqual({ timeLeft: '00:00:00', ticking: false });
+    ).toEqual({ timeLeft: initalTime, ticking: false });
   });
 
 });
