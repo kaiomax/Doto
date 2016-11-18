@@ -6,7 +6,7 @@ import {
 const defaultTime = '00:25:00';
 const initialState = { timeLeft: defaultTime, ticking: false };
 
-export default function dotos(state = initialState, action) {
+export default function clock(state = initialState, action) {
   switch (action.type) {
     case START_TIMER:
       return {
