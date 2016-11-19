@@ -22,10 +22,46 @@ function mapDispatchToProps(dispatch) {
 }
 
 export class ClockControl extends React.Component {
+  constructor(props) {
+    super();
+
+    this.state = {
+      secondsLeft: props.clock.secondsLeft
+    }
+  }
+
+  componentDidMount() {
+    if(this.props.clock.ticking && !this.interval) {
+      this.setTickInterval();
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if(prevProps.clock.ticking && !this.props.clock.ticking) {
+      clearInterval(this.interval);
+    } else if(!prevProps.clock.ticking && this.props.clock.ticking) {
+      this.setTickInterval();
+    }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
+  setTickInterval() {
+    this.interval = setInterval(() => this.tick(), 1000);
+  }
+
+  tick() {
+    this.setState((prevState) => ({
+      secondsLeft: prevState.secondsLeft - 1
+    }));
+  }
+
   render() {
     return (
       <div>
-        <Clock time={ this.props.clock.timeLeft } />
+        <Clock time={ this.state.secondsLeft } />
         <RaisedButton
           onClick={ this.props.playTimer.bind(this) }
           label="Iniciar"

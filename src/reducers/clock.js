@@ -6,7 +6,7 @@ import {
 import moment from 'moment';
 
 const defaultTime = moment.duration(25, 'minutes').asSeconds();
-const initialState = { timeLeft: defaultTime, ticking: false };
+const initialState = { secondsLeft: defaultTime, ticking: false };
 
 export default function clock(state = initialState, action) {
   switch (action.type) {
@@ -22,7 +22,7 @@ export default function clock(state = initialState, action) {
       };
     case STOP_TIMER:
       return {
-        timeLeft: defaultTime,
+        secondsLeft: defaultTime,
         ticking: false
       }
     default:

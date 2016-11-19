@@ -10,7 +10,7 @@ describe('clock reducer', () => {
   it('should return the initial state', () => {
     expect(
       reducer(undefined, {})
-    ).toEqual({ timeLeft: initalTime, ticking: false });
+    ).toEqual({ secondsLeft: initalTime, ticking: false });
   });
 
   it('should handle PLAY_TIMER', ()=>{
@@ -34,7 +34,7 @@ describe('clock reducer', () => {
       reducer(undefined, {
         type: STOP_TIMER
       })
-    ).toEqual({ timeLeft: initalTime, ticking: false });
+    ).toEqual({ secondsLeft: initalTime, ticking: false });
   });
 
 });
