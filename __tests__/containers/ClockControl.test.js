@@ -3,12 +3,13 @@ import { shallow } from 'enzyme';
 import { ClockControl } from '../../src/containers/ClockControl';
 import RaisedButton from 'material-ui/RaisedButton';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import _ from 'lodash';
 
 injectTapEventPlugin();
 jest.useFakeTimers();
 
-function setup() {
-  const props = {
+function setup(customProps) {
+  const props = _.merge({
     playTimer: jest.fn(),
     setTimeLeft: jest.fn(),
     stopTimer: jest.fn(),
@@ -16,7 +17,7 @@ function setup() {
       secondsLeft: 10,
       ticking: true
     }
-  };
+  }, customProps);
   const wrapper = shallow(<ClockControl { ...props } />);
 
   return {
@@ -60,6 +61,20 @@ describe('ClockControl', () => {
     expect(props.stopTimer.mock.calls.length).toBe(1);
   });
 
+  it('should call onTickerFinished when secondsLeft is equal 0', () => {
+    const customProps = {
+      clock: { secondsLeft: 1 },
+      onTickerFinished: jest.fn()
+    }
+    const { wrapper } = setup(customProps);
+
+    expect(wrapper.instance().state.secondsLeft).toBe(customProps.clock.secondsLeft);
+    expect(wrapper.instance().props.onTickerFinished.mock.calls.length).toBe(0);
+    wrapper.instance().tick();
+    expect(wrapper.instance().state.secondsLeft).toBe(0);
+    expect(wrapper.instance().props.onTickerFinished.mock.calls.length).toBe(1);
+  });
+
   it('waits 1 second to tick timer', () => {
     const { wrapper } = setup();
 
@@ -83,5 +98,4 @@ describe('ClockControl', () => {
     wrapper.instance().tick();
     expect(wrapper.instance().state.secondsLeft).toBe(props.clock.secondsLeft - 2);
   });
-
 });

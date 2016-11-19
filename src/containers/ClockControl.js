@@ -61,9 +61,17 @@ export class ClockControl extends React.Component {
   }
 
   tick() {
-    this.setState((prevState) => ({
-      secondsLeft: prevState.secondsLeft - 1
-    }));
+    this.setState({
+      secondsLeft: this.state.secondsLeft - 1
+    });
+
+    if(this.state.secondsLeft === 0){
+      clearInterval(this.interval);
+
+      if(this.props.onTickerFinished) {
+        this.props.onTickerFinished();
+      }
+    }
   }
 
   render() {
