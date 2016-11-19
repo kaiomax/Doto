@@ -2,6 +2,7 @@ import {
   ADD_DOTO,
   PAUSE_TIMER,
   PLAY_TIMER,
+  SET_TIME_LEFT,
   STOP_TIMER
 } from './constants/ActionTypes';
 
@@ -27,5 +28,13 @@ export function playTimer() {
 export function stopTimer() {
   return {
     type: STOP_TIMER
+  };
+}
+
+
+export function setTimeLeft(seconds) {
+  return {
+    type: SET_TIME_LEFT,
+    payload: { seconds }
   };
 }

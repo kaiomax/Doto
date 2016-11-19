@@ -9,8 +9,8 @@ jest.useFakeTimers();
 
 function setup() {
   const props = {
-    pauseTimer: jest.fn(),
     playTimer: jest.fn(),
+    setTimeLeft: jest.fn(),
     stopTimer: jest.fn(),
     clock: {
       secondsLeft: 10,
@@ -43,12 +43,13 @@ describe('ClockControl', () => {
     expect(props.playTimer.mock.calls.length).toBe(1);
   });
 
-  it('should call pauseTimer', () => {
+  it('should call setTimeLeft', () => {
     const { wrapper, props } = setup();
 
     wrapper.find(RaisedButton).at(1).simulate('click');
 
-    expect(props.pauseTimer.mock.calls.length).toBe(1);
+    expect(props.setTimeLeft.mock.calls.length).toBe(1);
+    expect(props.setTimeLeft).lastCalledWith(props.clock.secondsLeft);
   });
 
   it('should call stopTimer', () => {

@@ -2,8 +2,8 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
-  pauseTimer,
   playTimer,
+  setTimeLeft,
   stopTimer
 } from '../actions';
 import Clock from '../components/Clock';
@@ -16,7 +16,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  const actions = { pauseTimer, playTimer, stopTimer };
+  const actions = { playTimer, setTimeLeft, stopTimer };
 
   return bindActionCreators(actions, dispatch);
 }
@@ -33,6 +33,14 @@ export class ClockControl extends React.Component {
   componentDidMount() {
     if(this.props.clock.ticking && !this.interval) {
       this.setTickInterval();
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(this.state.secondsLeft !== !nextProps.clock.secondsLeft) {
+      this.setState({
+        secondsLeft: nextProps.clock.secondsLeft
+      })
     }
   }
 
@@ -67,7 +75,7 @@ export class ClockControl extends React.Component {
           label="Iniciar"
         />
         <RaisedButton
-          onClick={ this.props.pauseTimer.bind(this) }
+          onClick={ this.props.setTimeLeft.bind(this, this.state.secondsLeft) }
           label="Pausar"
         />
         <RaisedButton
