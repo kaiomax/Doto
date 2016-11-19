@@ -5,16 +5,17 @@ import {
   SET_TIME_LEFT,
   STOP_TIMER
 } from '../../src/constants/ActionTypes';
-import moment from 'moment';
+import {
+  WORK_TIME
+} from '../../src/constants/Clock';
 
-const defaultTime = moment.duration(25, 'minutes').asSeconds();
-const initialState = { secondsLeft: defaultTime, ticking: false };
+const initialState = { secondsLeft: WORK_TIME, ticking: false };
 
 describe('clock reducer', () => {
   it('should return the initial state', () => {
     expect(
       reducer(undefined, {})
-    ).toEqual({ secondsLeft: defaultTime, ticking: false });
+    ).toEqual({ secondsLeft: WORK_TIME, ticking: false });
   });
 
   it('should handle PLAY_TIMER', ()=>{
@@ -38,7 +39,7 @@ describe('clock reducer', () => {
       reducer(undefined, {
         type: STOP_TIMER
       })
-    ).toEqual({ secondsLeft: defaultTime, ticking: false });
+    ).toEqual({ secondsLeft: WORK_TIME, ticking: false });
   });
 
   it('should handle SET_TIME_LEFT', ()=>{

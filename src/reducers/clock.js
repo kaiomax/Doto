@@ -4,10 +4,11 @@ import {
   SET_TIME_LEFT,
   STOP_TIMER
 } from '../constants/ActionTypes';
-import moment from 'moment';
+import {
+  WORK_TIME
+} from '../constants/Clock';
 
-const defaultTime = moment.duration(25, 'minutes').asSeconds();
-const initialState = { secondsLeft: defaultTime, ticking: false };
+const initialState = { secondsLeft: WORK_TIME, ticking: false };
 
 export default function clock(state = initialState, action) {
   switch (action.type) {
@@ -28,7 +29,7 @@ export default function clock(state = initialState, action) {
       }
     case STOP_TIMER:
       return {
-        secondsLeft: defaultTime,
+        secondsLeft: WORK_TIME,
         ticking: false
       }
     default:
