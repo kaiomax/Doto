@@ -2,10 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { ClockControl } from '../../src/containers/ClockControl';
 import RaisedButton from 'material-ui/RaisedButton';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 import _ from 'lodash';
 
-injectTapEventPlugin();
 jest.useFakeTimers();
 
 function setup(customProps) {
