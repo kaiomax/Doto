@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import AddDoto from './AddDoto';
 import DotoList from './DotoList';
+import ClockControl from './ClockControl';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper';
 
@@ -21,6 +22,7 @@ export default class Root extends Component {
       <MuiThemeProvider>
         <Provider store={ store }>
           <Paper style={ paperStyle } zDepth={ 1 }>
+            <ClockControl />
             <AddDoto />
             <DotoList />
           </Paper>
