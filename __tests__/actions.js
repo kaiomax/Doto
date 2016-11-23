@@ -2,15 +2,15 @@ import {
   addDoto,
   pauseTimer,
   playTimer,
-  setTimeLeft,
-  stopTimer
+  setTimerMode,
+  resetTimer
 } from '../src/actions';
 import {
   ADD_DOTO,
   PAUSE_TIMER,
   PLAY_TIMER,
-  SET_TIME_LEFT,
-  STOP_TIMER
+  SET_TIMER_MODE,
+  RESET_TIMER
 } from '../src/constants/ActionTypes';
 
 describe('actions', () => {
@@ -40,22 +40,22 @@ describe('actions', () => {
     expect(playTimer()).toEqual(expectedAction);
   });
 
-  it('should create an action to stop the timer', () => {
+  it('should create an action to reset the timer', () => {
     const expectedAction = {
-      type: STOP_TIMER
+      type: RESET_TIMER
     };
 
-    expect(stopTimer()).toEqual(expectedAction);
+    expect(resetTimer()).toEqual(expectedAction);
   });
 
-  it('should create an action to the seconds left on timer', () => {
+  it('should create an action to set the timer mode', () => {
     const expectedAction = {
-      type: SET_TIME_LEFT,
+      type: SET_TIMER_MODE,
       payload: {
-        seconds: 60
+        mode: 'X'
       }
     };
 
-    expect(setTimeLeft(60)).toEqual(expectedAction);
+    expect(setTimerMode('X')).toEqual(expectedAction);
   });
 });
