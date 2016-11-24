@@ -36,7 +36,7 @@ describe('actions', () => {
       payload: { dotos }
     };
 
-    expect(addDotos(dotos)).toEqual([expectedAction]);
+    expect(addDotos(dotos)).toEqual(expectedAction);
   });
 
   it('should create an action to pause the timer', () => {

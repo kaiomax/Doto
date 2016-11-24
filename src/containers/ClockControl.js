@@ -8,6 +8,7 @@ import {
 } from '../actions';
 import Clock from '../components/Clock';
 import RaisedButton from 'material-ui/RaisedButton';
+import bell from '../assets/bell.mp3';
 
 function mapStateToProps(state) {
   return {
@@ -76,6 +77,9 @@ export class ClockControl extends React.Component {
       if(this.props.onTickerFinished) {
         this.props.onTickerFinished();
       }
+
+      const bell = document.getElementById('bell');
+      if(bell) { bell.play(); }
     }
   }
 
@@ -89,6 +93,10 @@ export class ClockControl extends React.Component {
   render() {
     return (
       <div>
+        <audio
+          id="bell"
+          src={ bell }
+        />
         <Clock time={ this.state.secondsLeft } />
         <RaisedButton
           onClick={ this.props.playTimer.bind(this) }
