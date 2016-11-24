@@ -23,6 +23,7 @@ describe('actions', () => {
 
     expect(action.type).toEqual(ADD_DOTO);
     expect(action.payload.title).toEqual(title);
+    expect(validator.isUUID(action.payload.id)).toBe(true);
     expect(validator.isISO8601(action.payload.finishedAt)).toBe(true);
   });
 
@@ -34,6 +35,7 @@ describe('actions', () => {
     expect(action.payload.dotos.length).toEqual(2);
     expect(action.payload.dotos[0].title).toEqual('Doto 1');
     expect(action.payload.dotos[1].title).toEqual('Doto 2');
+    expect(validator.isUUID(action.payload.dotos[0].id)).toBe(true);
     expect(validator.isISO8601(action.payload.dotos[0].finishedAt)).toBe(true);
   });
 
