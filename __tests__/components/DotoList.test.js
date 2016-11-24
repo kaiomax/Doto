@@ -9,10 +9,11 @@ const secondDate = '2016-01-02T00:00:00-03:00';
 
 const props = {
   dotos: [
-    { title: 'Doto 1', finishedAt: firstDate },
-    { title: 'Doto 2', finishedAt: firstDate },
-    { title: 'Doto 3', finishedAt: secondDate }
-  ]
+    { id: 1, title: 'Doto 1', finishedAt: firstDate },
+    { id: 2, title: 'Doto 2', finishedAt: firstDate },
+    { id: 3, title: 'Doto 3', finishedAt: secondDate }
+  ],
+  onDelete: jest.fn()
 };
 let wrapper;
 

@@ -1,6 +1,7 @@
 import {
   ADD_DOTO,
   ADD_DOTOS,
+  DELETE_DOTO,
   PAUSE_TIMER,
   PLAY_TIMER,
   SET_TIMER_MODE,
@@ -24,6 +25,13 @@ export function addDotos(titles) {
   return {
     type: ADD_DOTOS,
     payload: { dotos }
+  };
+}
+
+export function deleteDoto(id) {
+  return {
+    type: DELETE_DOTO,
+    payload: id
   };
 }
 

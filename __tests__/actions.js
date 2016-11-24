@@ -2,6 +2,7 @@ import validator from 'validator';
 import {
   addDoto,
   addDotos,
+  deleteDoto,
   pauseTimer,
   playTimer,
   setTimerMode,
@@ -10,6 +11,7 @@ import {
 import {
   ADD_DOTO,
   ADD_DOTOS,
+  DELETE_DOTO,
   PAUSE_TIMER,
   PLAY_TIMER,
   SET_TIMER_MODE,
@@ -37,6 +39,13 @@ describe('actions', () => {
     expect(action.payload.dotos[1].title).toEqual('Doto 2');
     expect(validator.isUUID(action.payload.dotos[0].id)).toBe(true);
     expect(validator.isISO8601(action.payload.dotos[0].finishedAt)).toBe(true);
+  });
+
+  it('should create an action to delete a doto', () => {
+    const action = deleteDoto(1);
+
+    expect(action.type).toEqual(DELETE_DOTO);
+    expect(action.payload).toEqual(1);
   });
 
   it('should create an action to pause the timer', () => {

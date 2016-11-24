@@ -5,8 +5,8 @@ export const BREAK_TIME = 'break';
 
 export const INITIAL_STATE = {
   timers: {
-    [BREAK_TIME]: minutesToSeconds(0.1),
-    [WORK_TIME]: minutesToSeconds(0.2)
+    [BREAK_TIME]: minutesToSeconds(5),
+    [WORK_TIME]: minutesToSeconds(25)
   },
   mode: WORK_TIME,
   ticking: false
