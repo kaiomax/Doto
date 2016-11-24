@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const WebpackNotifierPlugin = require('webpack-notifier');
 
 // env
-const buildDirectory = './dist/';
+const buildDirectory = './static/';
 
 module.exports = {
   entry: [
