@@ -41,6 +41,10 @@ export class ClockControl extends React.Component {
       this.setState({
         secondsLeft: nextProps.clock.timers[nextProps.clock.mode]
       });
+    } else if(nextProps.clock.ticking && this.state.secondsLeft === 0) {
+      this.setState({
+        secondsLeft: nextProps.clock.timers[nextProps.clock.mode]
+      });
     }
   }
 
@@ -67,6 +71,7 @@ export class ClockControl extends React.Component {
 
     if(this.state.secondsLeft === 0){
       clearInterval(this.interval);
+      this.props.pauseTimer();
 
       if(this.props.onTickerFinished) {
         this.props.onTickerFinished();

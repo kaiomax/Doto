@@ -9,7 +9,7 @@ import {
 
 jest.useFakeTimers();
 
-function setup(customProps) {
+function setup(customProps = {}) {
   const props = _.merge({
     pauseTimer: jest.fn(),
     playTimer: jest.fn(),
@@ -68,10 +68,25 @@ describe('ClockControl', () => {
     expect(wrapper.instance().state.secondsLeft).toBe(
       customProps.clock.timers[CLOCK_INITIAL_STATE.mode]
     );
-    expect(wrapper.instance().props.onTickerFinished.mock.calls.length).toBe(0);
+    expect(customProps.onTickerFinished.mock.calls.length).toBe(0);
     wrapper.instance().tick();
     expect(wrapper.instance().state.secondsLeft).toBe(0);
-    expect(wrapper.instance().props.onTickerFinished.mock.calls.length).toBe(1);
+    expect(customProps.onTickerFinished.mock.calls.length).toBe(1);
+  });
+
+  it('should call pauseTimer when secondsLeft is equal 0', () => {
+    const customProps = {
+      clock: { timers: { [CLOCK_INITIAL_STATE.mode]: 1 } }
+    }
+    const { wrapper, props } = setup(customProps);
+
+    expect(wrapper.instance().state.secondsLeft).toBe(
+      customProps.clock.timers[CLOCK_INITIAL_STATE.mode]
+    );
+    expect(props.pauseTimer.mock.calls.length).toBe(0);
+    wrapper.instance().tick();
+    expect(wrapper.instance().state.secondsLeft).toBe(0);
+    expect(props.pauseTimer.mock.calls.length).toBe(1);
   });
 
   it('waits 1 second to tick timer', () => {
