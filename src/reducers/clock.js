@@ -1,16 +1,14 @@
 import {
   PAUSE_TIMER,
   PLAY_TIMER,
-  SET_TIME_LEFT,
-  STOP_TIMER
+  SET_TIMER_MODE,
+  RESET_TIMER
 } from '../constants/ActionTypes';
 import {
-  WORK_TIME
+  INITIAL_STATE
 } from '../constants/Clock';
 
-const initialState = { secondsLeft: WORK_TIME, ticking: false };
-
-export default function clock(state = initialState, action) {
+export default function clock(state = INITIAL_STATE, action) {
   switch (action.type) {
     case PLAY_TIMER:
       return {
@@ -22,15 +20,17 @@ export default function clock(state = initialState, action) {
         ...state,
         ticking: false
       };
-    case SET_TIME_LEFT:
+    case RESET_TIMER:
       return {
-        secondsLeft: action.payload.seconds,
-        ticking: false
+        ...state,
+        mode: INITIAL_STATE.mode,
+        ticking: INITIAL_STATE.ticking
       }
-    case STOP_TIMER:
+    case SET_TIMER_MODE:
       return {
-        secondsLeft: WORK_TIME,
-        ticking: false
+        ...state,
+        mode: action.payload.mode,
+        ticking: true
       }
     default:
       return state;

@@ -3,18 +3,18 @@ import { shallow } from 'enzyme';
 import { ClockControl } from '../../src/containers/ClockControl';
 import RaisedButton from 'material-ui/RaisedButton';
 import _ from 'lodash';
+import {
+  INITIAL_STATE as CLOCK_INITIAL_STATE
+} from '../../src/constants/Clock';
 
 jest.useFakeTimers();
 
-function setup(customProps) {
+function setup(customProps = {}) {
   const props = _.merge({
+    pauseTimer: jest.fn(),
     playTimer: jest.fn(),
-    setTimeLeft: jest.fn(),
-    stopTimer: jest.fn(),
-    clock: {
-      secondsLeft: 10,
-      ticking: true
-    }
+    resetTimer: jest.fn(),
+    clock: CLOCK_INITIAL_STATE
   }, customProps);
   const wrapper = shallow(<ClockControl { ...props } />);
 
@@ -31,7 +31,7 @@ describe('ClockControl', () => {
     expect(wrapper.find(RaisedButton).length).toBe(3);
     expect(wrapper.find(RaisedButton).at(0).props().label).toBe('Iniciar');
     expect(wrapper.find(RaisedButton).at(1).props().label).toBe('Pausar');
-    expect(wrapper.find(RaisedButton).at(2).props().label).toBe('Parar');
+    expect(wrapper.find(RaisedButton).at(2).props().label).toBe('Resetar');
   });
 
   it('should call playTimer', () => {
@@ -42,35 +42,51 @@ describe('ClockControl', () => {
     expect(props.playTimer.mock.calls.length).toBe(1);
   });
 
-  it('should call setTimeLeft', () => {
+  it('should call pauseTimer', () => {
     const { wrapper, props } = setup();
 
     wrapper.find(RaisedButton).at(1).simulate('click');
 
-    expect(props.setTimeLeft.mock.calls.length).toBe(1);
-    expect(props.setTimeLeft).lastCalledWith(props.clock.secondsLeft);
+    expect(props.pauseTimer.mock.calls.length).toBe(1);
   });
 
-  it('should call stopTimer', () => {
+  it('should call resetTimer', () => {
     const { wrapper, props } = setup();
 
     wrapper.find(RaisedButton).at(2).simulate('click');
 
-    expect(props.stopTimer.mock.calls.length).toBe(1);
+    expect(props.resetTimer.mock.calls.length).toBe(1);
   });
 
   it('should call onTickerFinished when secondsLeft is equal 0', () => {
     const customProps = {
-      clock: { secondsLeft: 1 },
+      clock: { timers: { [CLOCK_INITIAL_STATE.mode]: 1 } },
       onTickerFinished: jest.fn()
     }
     const { wrapper } = setup(customProps);
 
-    expect(wrapper.instance().state.secondsLeft).toBe(customProps.clock.secondsLeft);
-    expect(wrapper.instance().props.onTickerFinished.mock.calls.length).toBe(0);
+    expect(wrapper.instance().state.secondsLeft).toBe(
+      customProps.clock.timers[CLOCK_INITIAL_STATE.mode]
+    );
+    expect(customProps.onTickerFinished.mock.calls.length).toBe(0);
     wrapper.instance().tick();
     expect(wrapper.instance().state.secondsLeft).toBe(0);
-    expect(wrapper.instance().props.onTickerFinished.mock.calls.length).toBe(1);
+    expect(customProps.onTickerFinished.mock.calls.length).toBe(1);
+  });
+
+  it('should call pauseTimer when secondsLeft is equal 0', () => {
+    const customProps = {
+      clock: { timers: { [CLOCK_INITIAL_STATE.mode]: 1 } }
+    }
+    const { wrapper, props } = setup(customProps);
+
+    expect(wrapper.instance().state.secondsLeft).toBe(
+      customProps.clock.timers[CLOCK_INITIAL_STATE.mode]
+    );
+    expect(props.pauseTimer.mock.calls.length).toBe(0);
+    wrapper.instance().tick();
+    expect(wrapper.instance().state.secondsLeft).toBe(0);
+    expect(props.pauseTimer.mock.calls.length).toBe(1);
   });
 
   it('waits 1 second to tick timer', () => {
@@ -89,11 +105,12 @@ describe('ClockControl', () => {
 
   it('decrements seconds by one each time tick is called', () => {
     const { wrapper, props } = setup();
+    const seconds = props.clock.timers[props.clock.mode];
 
-    expect(wrapper.instance().state.secondsLeft).toBe(props.clock.secondsLeft);
+    expect(wrapper.instance().state.secondsLeft).toBe(seconds);
     wrapper.instance().tick();
-    expect(wrapper.instance().state.secondsLeft).toBe(props.clock.secondsLeft - 1);
+    expect(wrapper.instance().state.secondsLeft).toBe(seconds - 1);
     wrapper.instance().tick();
-    expect(wrapper.instance().state.secondsLeft).toBe(props.clock.secondsLeft - 2);
+    expect(wrapper.instance().state.secondsLeft).toBe(seconds - 2);
   });
 });

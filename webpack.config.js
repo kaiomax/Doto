@@ -35,6 +35,10 @@ module.exports = {
         test: /(\.jsx|\.js)$/,
         loader: 'eslint-loader',
         exclude: /node_modules/
+      },
+      {
+        test: /\.(mp3|wav)$/,
+        loader: 'file-loader?name=sounds/sound-[hash:6].[ext]'
       }
     ],
   },

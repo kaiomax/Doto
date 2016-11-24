@@ -2,12 +2,13 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
+  pauseTimer,
   playTimer,
-  setTimeLeft,
-  stopTimer
+  resetTimer
 } from '../actions';
 import Clock from '../components/Clock';
 import RaisedButton from 'material-ui/RaisedButton';
+import bell from '../assets/bell.mp3';
 
 function mapStateToProps(state) {
   return {
@@ -16,7 +17,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  const actions = { playTimer, setTimeLeft, stopTimer };
+  const actions = { pauseTimer, playTimer, resetTimer };
 
   return bindActionCreators(actions, dispatch);
 }
@@ -26,7 +27,7 @@ export class ClockControl extends React.Component {
     super();
 
     this.state = {
-      secondsLeft: props.clock.secondsLeft
+      secondsLeft: props.clock.timers[props.clock.mode]
     }
   }
 
@@ -37,10 +38,14 @@ export class ClockControl extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(this.state.secondsLeft !== !nextProps.clock.secondsLeft) {
+    if(this.props.clock.mode !== nextProps.clock.mode) {
       this.setState({
-        secondsLeft: nextProps.clock.secondsLeft
-      })
+        secondsLeft: nextProps.clock.timers[nextProps.clock.mode]
+      });
+    } else if(nextProps.clock.ticking && this.state.secondsLeft === 0) {
+      this.setState({
+        secondsLeft: nextProps.clock.timers[nextProps.clock.mode]
+      });
     }
   }
 
@@ -67,28 +72,43 @@ export class ClockControl extends React.Component {
 
     if(this.state.secondsLeft === 0){
       clearInterval(this.interval);
+      this.props.pauseTimer();
 
       if(this.props.onTickerFinished) {
         this.props.onTickerFinished();
       }
+
+      const bell = document.getElementById('bell');
+      if(bell) { bell.play(); }
     }
+  }
+
+  resetTimer() {
+    this.setState({
+      secondsLeft: this.props.clock.timers[this.props.clock.mode]
+    });
+    this.props.resetTimer();
   }
 
   render() {
     return (
       <div>
+        <audio
+          id="bell"
+          src={ bell }
+        />
         <Clock time={ this.state.secondsLeft } />
         <RaisedButton
           onClick={ this.props.playTimer.bind(this) }
           label="Iniciar"
         />
         <RaisedButton
-          onClick={ this.props.setTimeLeft.bind(this, this.state.secondsLeft) }
+          onClick={ this.props.pauseTimer.bind(this) }
           label="Pausar"
         />
         <RaisedButton
-          onClick={ this.props.stopTimer.bind(this) }
-          label="Parar"
+          onClick={ this.resetTimer.bind(this) }
+          label="Resetar"
         />
       </div>
     );

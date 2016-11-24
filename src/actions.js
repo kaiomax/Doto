@@ -1,15 +1,23 @@
 import {
   ADD_DOTO,
+  ADD_DOTOS,
   PAUSE_TIMER,
   PLAY_TIMER,
-  SET_TIME_LEFT,
-  STOP_TIMER
+  SET_TIMER_MODE,
+  RESET_TIMER
 } from './constants/ActionTypes';
 
 export function addDoto(title) {
   return {
     type: ADD_DOTO,
     payload: { title }
+  };
+}
+
+export function addDotos(dotos) {
+  return {
+    type: ADD_DOTOS,
+    payload: { dotos }
   };
 }
 
@@ -25,16 +33,15 @@ export function playTimer() {
   };
 }
 
-export function stopTimer() {
+export function resetTimer() {
   return {
-    type: STOP_TIMER
+    type: RESET_TIMER
   };
 }
 
-
-export function setTimeLeft(seconds) {
+export function setTimerMode(mode) {
   return {
-    type: SET_TIME_LEFT,
-    payload: { seconds }
+    type: SET_TIMER_MODE,
+    payload: { mode }
   };
 }

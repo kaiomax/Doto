@@ -2,20 +2,19 @@ import reducer from '../../src/reducers/clock';
 import {
   PAUSE_TIMER,
   PLAY_TIMER,
-  SET_TIME_LEFT,
-  STOP_TIMER
+  SET_TIMER_MODE,
+  RESET_TIMER
 } from '../../src/constants/ActionTypes';
 import {
+  INITIAL_STATE,
   WORK_TIME
 } from '../../src/constants/Clock';
-
-const initialState = { secondsLeft: WORK_TIME, ticking: false };
 
 describe('clock reducer', () => {
   it('should return the initial state', () => {
     expect(
       reducer(undefined, {})
-    ).toEqual({ secondsLeft: WORK_TIME, ticking: false });
+    ).toEqual(INITIAL_STATE);
   });
 
   it('should handle PLAY_TIMER', ()=>{
@@ -34,25 +33,30 @@ describe('clock reducer', () => {
     ).toBeFalsy();
   });
 
-  it('should handle STOP_TIMER', ()=>{
+  it('should handle RESET_TIMER', ()=>{
     expect(
       reducer(undefined, {
-        type: STOP_TIMER
+        type: RESET_TIMER
       })
-    ).toEqual({ secondsLeft: WORK_TIME, ticking: false });
+    ).toEqual({
+      ...INITIAL_STATE,
+      mode: INITIAL_STATE.mode,
+      ticking: INITIAL_STATE.ticking
+    });
   });
 
-  it('should handle SET_TIME_LEFT', ()=>{
-    const seconds = 60;
+  it('should handle SET_TIMER_MODE', ()=>{
     expect(
-      reducer(initialState, {
-        type: SET_TIME_LEFT,
+      reducer(INITIAL_STATE, {
+        type: SET_TIMER_MODE,
         payload: {
-          seconds,
-          ticking: false
+          mode: WORK_TIME
         }
       })
-    ).toEqual({ secondsLeft: seconds, ticking: false });
+    ).toEqual({
+      ...INITIAL_STATE,
+      mode: WORK_TIME,
+      ticking: true
+    });
   });
-
 });
