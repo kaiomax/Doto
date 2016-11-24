@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { AddDoto } from '../../src/containers/AddDoto';
-import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
 function setup() {
@@ -21,8 +20,6 @@ describe('AddDoto', () => {
     const { wrapper } = setup();
 
     expect(wrapper.find(TextField).length).toBe(1);
-    expect(wrapper.find(RaisedButton).length).toBe(1);
-    expect(wrapper.find(RaisedButton).props().label).toBe('Adicionar');
   });
 
   it('should call addDoto', () => {
@@ -32,7 +29,9 @@ describe('AddDoto', () => {
     wrapper.find(TextField).simulate('change', {
       target: { value: dotoTitle }
     });
-    wrapper.find(RaisedButton).simulate('click');
+    wrapper.find(TextField).simulate('keyPress', {
+      key: 'Enter'
+    });
 
     expect(props.addDoto.mock.calls.length).toBe(1);
     expect(props.addDoto.mock.calls[0][0]).toBe(dotoTitle);
@@ -40,7 +39,9 @@ describe('AddDoto', () => {
 
   it('should not call addDoto when has no title', () => {
     const { wrapper, props } = setup();
-    wrapper.find(RaisedButton).simulate('click');
+    wrapper.find(TextField).simulate('keyPress', {
+      key: 'Enter'
+    });
 
     expect(props.addDoto.mock.calls.length).toBe(0);
   });
@@ -49,7 +50,9 @@ describe('AddDoto', () => {
     const { wrapper } = setup();
 
     expect(wrapper.state().alertIsVisible).toBeFalsy();
-    wrapper.find(RaisedButton).simulate('click');
+    wrapper.find(TextField).simulate('keyPress', {
+      key: 'Enter'
+    });
     expect(wrapper.state().alertIsVisible).toBeTruthy();
   });
 });

@@ -2,7 +2,6 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { addDoto } from '../actions';
-import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Snackbar from 'material-ui/Snackbar';
 
@@ -22,13 +21,7 @@ export class AddDoto extends React.Component {
     };
   }
 
-  handleChange(evt) {
-    this.setState({
-      value: evt.target.value
-    });
-  }
-
-  handleAddDoto() {
+  addDoto() {
     const { value } = this.state;
     if(value != '') {
       this.props.addDoto(value);
@@ -42,6 +35,18 @@ export class AddDoto extends React.Component {
     }
   }
 
+  handleChange(evt) {
+    this.setState({
+      value: evt.target.value
+    });
+  }
+
+  handleKeyChange(evt) {
+    if(evt.key === 'Enter') {
+      this.addDoto();
+    }
+  }
+
   handleCloseAlert() {
     this.setState({
       alertIsVisible: false
@@ -52,16 +57,12 @@ export class AddDoto extends React.Component {
     return (
       <div>
         <TextField
-          hintText="O que deseja fazer?"
-          floatingLabelText="Doto"
+          hintText="p. ex., Iniciei o plano de dominação mundial"
+          floatingLabelText="O que você fez?"
           fullWidth={ true }
           value={ this.state.value }
           onChange={ this.handleChange.bind(this) }
-        />
-        <RaisedButton
-          onClick={ this.handleAddDoto.bind(this) }
-          label="Adicionar"
-          style={ { marginTop: 20, marginBottom: 20 } }
+          onKeyPress={ this.handleKeyChange.bind(this) }
         />
         <Snackbar
           open={ this.state.alertIsVisible }
