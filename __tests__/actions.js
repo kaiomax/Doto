@@ -1,3 +1,4 @@
+import validator from 'validator';
 import {
   addDoto,
   addDotos,
@@ -18,25 +19,22 @@ import {
 describe('actions', () => {
   it('should create an action to add a doto', () => {
     const title = 'Some Doto';
-    const expectedAction = {
-      type: ADD_DOTO,
-      payload: { title }
-    };
+    const action = addDoto(title);
 
-    expect(addDoto(title)).toEqual(expectedAction);
+    expect(action.type).toEqual(ADD_DOTO);
+    expect(action.payload.title).toEqual(title);
+    expect(validator.isISO8601(action.payload.finishedAt)).toBe(true);
   });
 
   it('should create an action to add dotos', () => {
-    const dotos = [
-      { title: 'Doto 1' },
-      { title: 'Doto 2' }
-    ];
-    const expectedAction = {
-      type: ADD_DOTOS,
-      payload: { dotos }
-    };
+    const dotos = ['Doto 1', 'Doto 2'];
+    const action = addDotos(dotos);
 
-    expect(addDotos(dotos)).toEqual(expectedAction);
+    expect(action.type).toEqual(ADD_DOTOS);
+    expect(action.payload.dotos.length).toEqual(2);
+    expect(action.payload.dotos[0].title).toEqual('Doto 1');
+    expect(action.payload.dotos[1].title).toEqual('Doto 2');
+    expect(validator.isISO8601(action.payload.dotos[0].finishedAt)).toBe(true);
   });
 
   it('should create an action to pause the timer', () => {

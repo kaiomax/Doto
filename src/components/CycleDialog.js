@@ -50,6 +50,12 @@ export class CycleDialog extends React.Component {
     }
   }
 
+  get dotos() {
+    return _.map(this.state.dotos, (title) => {
+      return { title };
+    });
+  }
+
   changeMode(mode) {
     if(this.onWorkMode && !_.isEmpty(this.state.dotos)) {
       this.props.addDotos(this.state.dotos);
@@ -59,9 +65,9 @@ export class CycleDialog extends React.Component {
     this.props.onClose();
   }
 
-  handleAddDoto(doto) {
+  handleAddDoto(title) {
     let dotos = _.clone(this.state.dotos);
-    dotos.push({ title: doto });
+    dotos.push(title);
     this.setState({ dotos });
   }
 
@@ -70,7 +76,7 @@ export class CycleDialog extends React.Component {
     return (
       <div>
         <AddDoto onAddDoto={ this.handleAddDoto.bind(this) } />
-        <DotoList dotos={ this.state.dotos } />
+        <DotoList dotos={ this.dotos } />
       </div>
     );
   }

@@ -106,7 +106,7 @@ describe('CycleDialog', () => {
     expect(wrapper.instance().state.dotos.length).toBe(0);
     wrapper.instance().handleAddDoto('Some Doto');
     expect(wrapper.instance().state.dotos.length).toBe(1);
-    expect(wrapper.instance().state.dotos[0].title).toBe('Some Doto');
+    expect(wrapper.instance().state.dotos[0]).toBe('Some Doto');
   });
 
   it('should call setTimerMode and onClose when changeMode is called', () => {
