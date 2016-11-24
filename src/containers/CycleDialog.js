@@ -2,6 +2,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import CycleDialog from '../components/CycleDialog';
 import {
+  addDotos,
   setTimerMode
 } from '../actions';
 
@@ -12,7 +13,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  const actions = { setTimerMode };
+  const actions = { addDotos, setTimerMode };
 
   return bindActionCreators(actions, dispatch);
 }

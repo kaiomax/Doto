@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import AddDoto from './AddDoto';
 import DotoList from './DotoList';
 import ClockControl from './ClockControl';
 import CycleDialog from './CycleDialog';
@@ -35,7 +34,6 @@ export default class App extends Component {
         <ClockControl
           onTickerFinished={ this.toggleDialog.bind(this) }
         />
-        <AddDoto />
         <DotoList />
         <CycleDialog
           isVisible={ this.state.dialogIsVisible }

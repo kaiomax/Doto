@@ -1,17 +1,8 @@
-import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { addDoto } from '../actions';
+import React, { PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
 import Snackbar from 'material-ui/Snackbar';
 
-function mapDispatchToProps(dispatch) {
-  const actions = { addDoto };
-
-  return bindActionCreators(actions, dispatch);
-}
-
-export class AddDoto extends React.Component {
+class AddDoto extends React.Component {
   constructor() {
     super();
 
@@ -24,7 +15,7 @@ export class AddDoto extends React.Component {
   addDoto() {
     const { value } = this.state;
     if(value != '') {
-      this.props.addDoto(value);
+      this.props.onAddDoto(value);
       this.setState({
         value: ''
       });
@@ -75,4 +66,8 @@ export class AddDoto extends React.Component {
   }
 }
 
-export default connect(undefined, mapDispatchToProps)(AddDoto);
+AddDoto.propTypes = {
+  onAddDoto: PropTypes.func.isRequired
+}
+
+export default AddDoto;
