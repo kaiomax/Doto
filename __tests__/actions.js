@@ -1,5 +1,6 @@
 import {
   addDoto,
+  addDotos,
   pauseTimer,
   playTimer,
   setTimerMode,
@@ -7,6 +8,7 @@ import {
 } from '../src/actions';
 import {
   ADD_DOTO,
+  ADD_DOTOS,
   PAUSE_TIMER,
   PLAY_TIMER,
   SET_TIMER_MODE,
@@ -22,6 +24,19 @@ describe('actions', () => {
     };
 
     expect(addDoto(title)).toEqual(expectedAction);
+  });
+
+  it('should create an action to add dotos', () => {
+    const dotos = [
+      { title: 'Doto 1' },
+      { title: 'Doto 2' }
+    ];
+    const expectedAction = {
+      type: ADD_DOTOS,
+      payload: { dotos }
+    };
+
+    expect(addDotos(dotos)).toEqual([expectedAction]);
   });
 
   it('should create an action to pause the timer', () => {
