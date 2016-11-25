@@ -8,7 +8,6 @@ import {
 } from '../actions';
 import Clock from '../components/Clock';
 import RaisedButton from 'material-ui/RaisedButton';
-import bell from '../assets/bell.mp3';
 
 function mapStateToProps(state) {
   return {
@@ -95,7 +94,7 @@ export class ClockControl extends React.Component {
       <div>
         <audio
           id="bell"
-          src={ bell }
+          src="https://notificationsounds.com/soundfiles/f5f8590cd58a54e94377e6ae2eded4d9/file-sounds-1070-teleporter.mp3"
         />
         <Clock time={ this.state.secondsLeft } />
         <RaisedButton
