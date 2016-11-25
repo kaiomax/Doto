@@ -3,7 +3,6 @@ import { shallow } from 'enzyme';
 import _ from 'lodash';
 import CycleDialog from '../../src/components/CycleDialog';
 import AddDoto from '../../src/components/AddDoto';
-import DotoList from '../../src/components/DotoList';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import {
@@ -38,7 +37,6 @@ describe('CycleDialog', () => {
     it('should render the right components', () => {
       expect(wrapper.find(Dialog).length).toBe(1);
       expect(wrapper.find(AddDoto).length).toBe(1);
-      expect(wrapper.find(DotoList).length).toBe(1);
     });
 
     it('should have passed the right props for Dialog', () => {
@@ -90,7 +88,6 @@ describe('CycleDialog', () => {
     it('should render the right components', () => {
       expect(wrapper.find(Dialog).length).toBe(1);
       expect(wrapper.find(AddDoto).length).toBe(0);
-      expect(wrapper.find(DotoList).length).toBe(0);
     });
 
     it('should have passed the right props for Dialog', () => {
@@ -106,7 +103,7 @@ describe('CycleDialog', () => {
     expect(wrapper.instance().state.dotos.length).toBe(0);
     wrapper.instance().handleAddDoto('Some Doto');
     expect(wrapper.instance().state.dotos.length).toBe(1);
-    expect(wrapper.instance().state.dotos[0].title).toBe('Some Doto');
+    expect(wrapper.instance().state.dotos[0]).toBe('Some Doto');
   });
 
   it('should call setTimerMode and onClose when changeMode is called', () => {

@@ -1,7 +1,8 @@
 import reducer from '../../src/reducers/dotos';
 import {
   ADD_DOTO,
-  ADD_DOTOS
+  ADD_DOTOS,
+  DELETE_DOTO
 } from '../../src/constants/ActionTypes';
 
 describe('todos reducer', () => {
@@ -58,5 +59,19 @@ describe('todos reducer', () => {
       { title: 'Some Doto 1' },
       ...dotos
     ]);
+  });
+
+  it('should handle DELETE_DOTO', () => {
+    const dotos = [
+      { id: 1, title: 'Doto X' },
+      { id: 2, title: 'Doto Y' }
+    ];
+
+    expect(
+      reducer(dotos, {
+        type: DELETE_DOTO,
+        payload: 1
+      })
+    ).toEqual([ { id: 2, title: 'Doto Y' } ]);
   });
 });
