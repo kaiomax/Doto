@@ -1,23 +1,37 @@
 import {
   ADD_DOTO,
   ADD_DOTOS,
+  DELETE_DOTO,
   PAUSE_TIMER,
   PLAY_TIMER,
   SET_TIMER_MODE,
   RESET_TIMER
 } from './constants/ActionTypes';
+import {
+  createDoto,
+  createDotos
+} from './utils/doto';
 
 export function addDoto(title) {
+  const doto = createDoto(title);
   return {
     type: ADD_DOTO,
-    payload: { title }
+    payload: doto
   };
 }
 
-export function addDotos(dotos) {
+export function addDotos(titles) {
+  const dotos = createDotos(titles);
   return {
     type: ADD_DOTOS,
     payload: { dotos }
+  };
+}
+
+export function deleteDoto(id) {
+  return {
+    type: DELETE_DOTO,
+    payload: id
   };
 }
 

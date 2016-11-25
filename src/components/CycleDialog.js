@@ -2,12 +2,12 @@ import React, { PropTypes } from 'react';
 import _ from 'lodash';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
+import { List, ListItem } from 'material-ui/List';
 import {
   BREAK_TIME,
   WORK_TIME
 } from '../constants/Clock';
 import AddDoto from '../components/AddDoto';
-import DotoList from './DotoList';
 
 export class CycleDialog extends React.Component {
   constructor() {
@@ -59,9 +59,9 @@ export class CycleDialog extends React.Component {
     this.props.onClose();
   }
 
-  handleAddDoto(doto) {
+  handleAddDoto(title) {
     let dotos = _.clone(this.state.dotos);
-    dotos.push({ title: doto });
+    dotos.push(title);
     this.setState({ dotos });
   }
 
@@ -70,7 +70,16 @@ export class CycleDialog extends React.Component {
     return (
       <div>
         <AddDoto onAddDoto={ this.handleAddDoto.bind(this) } />
-        <DotoList dotos={ this.state.dotos } />
+        <List>
+          { this.state.dotos.map((title, i) => {
+            return (
+              <ListItem
+                key={ i }
+                primaryText={ title }
+              />
+            );
+          }) }
+        </List>
       </div>
     );
   }
